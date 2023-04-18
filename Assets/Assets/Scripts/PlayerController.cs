@@ -42,7 +42,11 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetMouseButtonDown(1)){
             //Debug.Log("Left Click");
-
+            float anguloRadianes = Mathf.Atan2(puntero.y - transform.position.y, puntero.x - transform.position.x);
+            float anguloGrados = (180 / Mathf.PI) * anguloRadianes - 90;
+            GameObject asd = Instantiate(bala, transform.position, Quaternion.Euler(0, 0, anguloGrados));
+            GameObject asd1 = Instantiate(bala, transform.position, Quaternion.Euler(0, 0, anguloGrados+45));
+            GameObject asd2 = Instantiate(bala, transform.position, Quaternion.Euler(0, 0, anguloGrados-45));
         }
     }
 

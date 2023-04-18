@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float vel;
+    public event Action<Enemy> HitToPlayer;
     public bool perseguir = false;
 
  
@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             perseguir = true;
+            HitToPlayer?.Invoke(this);
         }
     }
 
@@ -23,5 +24,9 @@ public class Enemy : MonoBehaviour
             perseguir = false;
         }
 
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        HitToPlayer?.Invoke(this);
     }
 }
