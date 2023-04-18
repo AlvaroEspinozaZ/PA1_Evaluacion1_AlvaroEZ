@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [Header("Proyectil")]
     [SerializeField] private GameObject bala;
-    [SerializeField] private BalaC prfBala;
+    private BalaC prfBala;
     [Header("Vida")]
-    [SerializeField] private HealthBarController barraVida;
+    [SerializeField] public HealthBarController barraVida;
 
     private void Start()
     {
@@ -49,14 +49,16 @@ public class PlayerController : MonoBehaviour
     private void CheckFlip(float x_Position){
         spriteRenderer.flipX = (x_Position - transform.position.x) < 0;
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+     
+ 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy1")
         {
             barraVida.UpdateHealth(-20);
+            barraVida.maxValue -= 20;
             Debug.Log(collision.gameObject);
+            MovimientoCa.Instance.MoverCamara(5, 5, 0.5f);
         }
     }
-
 }

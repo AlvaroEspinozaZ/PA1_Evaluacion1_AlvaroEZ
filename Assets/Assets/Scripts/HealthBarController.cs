@@ -53,12 +53,6 @@ public class HealthBarController : MonoBehaviour
     }
 
     private void Update() {
-        /*
-        if(Input.GetMouseButtonDown(0)){
-            UpdateHealth(20);
-        }else if(Input.GetMouseButtonDown(1)){
-            UpdateHealth(-20);
-        }*/
         
     }
 

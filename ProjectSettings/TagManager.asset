@@ -9,6 +9,7 @@ TagManager:
   - Bala
   - Enemy1
   - Enemy2
+  - Enemy
   layers:
   - Default
   - TransparentFX

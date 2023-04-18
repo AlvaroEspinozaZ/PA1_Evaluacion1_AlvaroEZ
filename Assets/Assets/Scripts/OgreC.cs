@@ -1,60 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class OgreC : MonoBehaviour
 {
     [SerializeField] public Transform Obe;
     [SerializeField]  float vel;
+    [SerializeField] public float points=10;
+    [SerializeField] public Enemy vistaOgre;
     Rigidbody2D rgb;
     [Header("Vida")]
-    [SerializeField] private HealthBarController barraVida;
-    bool perseguir=false;
-    
-    
+    [SerializeField] public HealthBarController barraVida;
+    [SerializeField] private Vector2 Quieto;
+
+    public event Action<OgreC> OnHitEnemy;
+    public event Action<OgreC> OnHitKill;
+
     // Start is called before the first frame update
     void Start()
     {
         rgb = GetComponent<Rigidbody2D>();
+        Quieto = (transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (perseguir==true)
+        Vector2 Atacando = (Obe.position - transform.position);
+        Vector2 regresando = new Vector2(Quieto.x - transform.position.x, Quieto.y - transform.position.y);
+        if (vistaOgre.perseguir == true)
         {
-            rgb.velocity = ((Obe.position - transform.position) * vel);
             
+            rgb.velocity = (Atacando * vel);            
         }
         else
         {
-            rgb.velocity = ((Obe.position - transform.position) * 0);
+            rgb.velocity = regresando*0.5f;
+            if (transform.position.x <= Quieto.x&& transform.position.y <= Quieto.y)
+            {
+                rgb.velocity = regresando* 0;
+            }
         }
-       
+        
     }
    
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            perseguir = true;
-
-        }
+    {       
         if (collision.gameObject.tag == "Bala")
         {
             Destroy(collision.gameObject);
-            barraVida.UpdateHealth(-20);
-            Debug.Log(collision.gameObject);
+            barraVida.maxValue = barraVida.maxValue- 20;
+            Debug.Log(barraVida.maxValue);
+            OnHitEnemy?.Invoke(this);
+            if (barraVida.maxValue <= 0)
+            {
+                OnHitKill?.Invoke(this);
+                gameObject.SetActive(false);
+            }
         }
-
-
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            perseguir = false;
-        }
-       
-    }
+
+   
 }

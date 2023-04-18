@@ -21,10 +21,9 @@ public class BalaC : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy1")
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
-
         }
     }
 }
