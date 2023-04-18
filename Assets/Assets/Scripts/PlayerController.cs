@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = (x_Position - transform.position.x) < 0;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy1")
         {

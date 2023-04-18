@@ -5,7 +5,7 @@ using TMPro;
 
 public class HealthBarController : MonoBehaviour
 {
-    [SerializeField] private int maxValue;
+    [SerializeField] public int maxValue;
     [Header("Health Bar Visual Components")] 
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private RectTransform modifiedBar;
