@@ -58,7 +58,9 @@ public class GameController : MonoBehaviour
         wizzardsRemaining = new List<WizzardC>(wizzardsOnMap);
         foreach (WizzardC wizzard in wizzardsRemaining)
         {           
-            wizzard.vistaWizzard.HitToPlayer += HitsCollectedWizzard;        
+              wizzard.vistaWizzard.HitToPlayer += HitsCollectedWizzard;
+            
+                   
             wizzard.OnHitEnemy += HitsCollectedWizzard;
             wizzard.OnHitKill += CollectedKillsWizzard;
         }
@@ -106,7 +108,7 @@ public class GameController : MonoBehaviour
     }
     private void Muerte(PlayerController play)
     {
-        if (player.barraVida.maxValue <= 0)
+        if (player.barraVida.maxValue <= 1)
         {
             onEndGameOver?.Invoke();
         }
