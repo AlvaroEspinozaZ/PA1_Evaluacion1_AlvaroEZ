@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D myRBD2;
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private BalaC prfBala;
     [Header("Vida")]
     [SerializeField] public HealthBarController barraVida;
+    public event Action<PlayerController> OnHitEnemy;
 
     private void Start()
     {
@@ -59,8 +60,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy1")
         {
+            OnHitEnemy?.Invoke(this);
             barraVida.UpdateHealth(-20);
             barraVida.maxValue -= 20;
+            Debug.Log(collision.gameObject);
+            MovimientoCa.Instance.MoverCamara(5, 5, 0.5f);
+        }
+        if (collision.gameObject.tag == "Enemy2")
+        {
+            OnHitEnemy?.Invoke(this);
+            barraVida.UpdateHealth(-10);
+            barraVida.maxValue -= 10;
             Debug.Log(collision.gameObject);
             MovimientoCa.Instance.MoverCamara(5, 5, 0.5f);
         }

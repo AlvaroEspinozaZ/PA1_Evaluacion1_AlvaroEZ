@@ -25,8 +25,5 @@ public class Enemy : MonoBehaviour
         }
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        HitToPlayer?.Invoke(this);
-    }
+
 }
